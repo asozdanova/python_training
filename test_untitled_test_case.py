@@ -15,26 +15,20 @@ class UntitledTestCase(unittest.TestCase):
     
     def test_untitled_test_case(self):
         wd = self.wd
-        self.open_home_page(wd)
         # login
         self.login(wd, username="admin", password="secret")
-        self.open_groups_page(wd)
         self.init_group_creation(wd)
         self.fill_group_firm(wd, Group(name="test2", header="nhflflf", footer="nhfflf"))
         self.submit_group_creation(wd)
-        self.return_to_groups_page(wd)
         self.logout(wd)
 
     def test_untitled_test_case_empty(self):
         wd = self.wd
-        self.open_home_page(wd)
         # login
         self.login(wd, username="admin", password="secret")
-        self.open_groups_page(wd)
         self.init_group_creation(wd)
         self.fill_group_firm(wd, Group(name="", header="", footer=""))
         self.submit_group_creation(wd)
-        self.return_to_groups_page(wd)
         self.logout(wd)
 
     def logout(self, wd):
@@ -50,6 +44,7 @@ class UntitledTestCase(unittest.TestCase):
     def submit_group_creation(self, wd):
         # submit group creation
         wd.find_element_by_name("submit").click()
+        self.return_to_groups_page(wd)
 
     def fill_group_firm(self, wd, group):
         # fill group firm
@@ -64,6 +59,7 @@ class UntitledTestCase(unittest.TestCase):
         wd.find_element_by_name("group_footer").send_keys(group.footer)
 
     def init_group_creation(self, wd):
+        self.open_groups_page(wd)
         # init group creation
         wd.find_element_by_name("new").click()
 
@@ -72,6 +68,7 @@ class UntitledTestCase(unittest.TestCase):
         wd.find_element_by_link_text("groups").click()
 
     def login(self, wd, username, password):
+        self.open_home_page(wd)
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
