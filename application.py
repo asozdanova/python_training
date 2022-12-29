@@ -22,7 +22,7 @@ class Application:
         wd = self.wd
         # submit group creation
         wd.find_element_by_name("submit").click()
-        self.return_to_groups_page(wd)
+        self.return_to_groups_page()
 
     def fill_group_firm(self, group):
         wd = self.wd
@@ -37,9 +37,9 @@ class Application:
         wd.find_element_by_name("group_footer").clear()
         wd.find_element_by_name("group_footer").send_keys(group.footer)
 
-    def init_group_creation(self, ):
+    def init_group_creation(self):
         wd = self.wd
-        self.open_groups_page(wd)
+        self.open_groups_page()
         # init group creation
         wd.find_element_by_name("new").click()
 
@@ -50,7 +50,7 @@ class Application:
 
     def login(self, username, password):
         wd = self.wd
-        self.open_home_page(wd)
+        self.open_home_page()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
@@ -68,7 +68,7 @@ class Application:
         try:
             self.wd.find_element(by=how, value=what)
         except NoSuchElementException as e:
-            return False
+             return False
         return True
 
     def is_alert_present(self):
