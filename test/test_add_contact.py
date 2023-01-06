@@ -1,7 +1,7 @@
 
 import pytest
-from contact import Contact
-from applicationcontact import Application
+from model.contact import Contact
+from fixture.applicationcontact import Application
 
 @pytest.fixture
 def app(request):
