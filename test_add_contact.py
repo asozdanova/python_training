@@ -18,8 +18,8 @@ class TestAddContact(unittest.TestCase):
         self.login(wd, username= "admin", password="secret")
         # open contact page
         wd.find_element_by_link_text("add new").click()
-        self.open_contact_creation(wd, Contact (firstname="ivanov", middlename="ivan", lastname="kkhhn", address="jnhtbhn", home="kkjnh", mobile="kjnb", work="kjnhhy", fax="kjnhy",
-                                  email= "kjhyt", bday="16", bmonth="January", byear="1982"))
+        self.create_contact(wd, Contact (firstname="ivanov", middlename="ivan", lastname="kkhhn", address="jnhtbhn", phonehome="kkjnh", phonemobile="kjnb", phonework="kjnhhy", phonefax="kjnhy",
+                                         email= "kjhyt", bday="16", bmonth="January", byear="1982"))
         self.logout(wd)
 
     def test_add_empty_contact(self):
@@ -28,17 +28,17 @@ class TestAddContact(unittest.TestCase):
         self.login(wd, username="admin", password="secret")
         # open contact page
         wd.find_element_by_link_text("add new").click()
-        self.open_contact_creation(wd, Contact (firstname="", middlename="", lastname="", address="",
-                                   home="", mobile="", work="", fax="",
-                                   email="", bday="", bmonth="-", byear=""))
+        self.create_contact(wd, Contact (firstname="", middlename="", lastname="", address="",
+                                         phonehome="", phonemobile="", phonework="", phonefax="",
+                                         email="", bday="", bmonth="-", byear=""))
         self.logout(wd)
 
     def logout(self, wd):
         # logout
         wd.find_element_by_link_text("Logout").click()
 
-    def open_contact_creation(self, wd, contact):
-        # open contact creation
+    def create_contact(self, wd, contact):
+        # fill contact firm and create contact
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
@@ -53,16 +53,16 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("address").send_keys(contact.address)
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys(contact.home)
+        wd.find_element_by_name("home").send_keys(contact.phonehome)
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys(contact.mobile)
+        wd.find_element_by_name("mobile").send_keys(contact.phonemobile)
         wd.find_element_by_name("work").click()
         wd.find_element_by_name("work").clear()
-        wd.find_element_by_name("work").send_keys(contact.work)
+        wd.find_element_by_name("work").send_keys(contact.phonework)
         wd.find_element_by_name("fax").click()
         wd.find_element_by_name("fax").clear()
-        wd.find_element_by_name("fax").send_keys(contact.fax)
+        wd.find_element_by_name("fax").send_keys(contact.phonefax)
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
         wd.find_element_by_name("email").send_keys(contact.email)
