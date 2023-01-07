@@ -1,19 +1,12 @@
-from selenium import webdriver
 from selenium.webdriver.support.select import Select
 
+class ContactHelper:
 
-class Application:
-    def __init__(self):
-       self.wd = webdriver.Chrome(executable_path='C:\Python311\Lib\site-packages\selenium\webdriver\chrome\chromedriver.exe')
-       self.wd.implicitly_wait(30)
-
-    def logout(self):
-        wd = self.wd
-        # logout
-        wd.find_element_by_link_text("Logout").click()
+    def __init__(self, app):
+        self.app = app
 
     def create_contact(self, contact):
-        wd = self.wd
+        wd = self.app.wd
         # open contact page
         wd.find_element_by_link_text("add new").click()
         # fill contact firm and create contact
@@ -55,38 +48,3 @@ class Application:
         wd.find_element_by_name("aday").click()
         wd.find_element_by_name("theform").click()
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-
-    def login(self, username, password):
-        wd = self.wd
-        # login
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
-
-    def open_home_page(self):
-        wd = self.wd
-        # open home page
-        wd.get("http://localhost/addressbook/addressbook/")
-
-    def is_element_present(self, how, what):
-        try:
-            self.wd.find_element(by=how, value=what)
-        except NoSuchElementException as e:
-            return False
-        return True
-
-    def is_alert_present(self):
-        try:
-            self.wd.switch_to_alert()
-        except NoAlertPresentException as e:
-            return False
-        return True
-
-    def destroy(self):
-        self.wd.quit()
