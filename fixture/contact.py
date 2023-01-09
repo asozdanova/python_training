@@ -44,13 +44,11 @@ class ContactHelper:
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(contact.byear)
-        wd.find_element_by_name("theform").click()
-        wd.find_element_by_name("aday").click()
-        wd.find_element_by_name("theform").click()
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
     def delete_first_contact(self):
         wd = self.app.wd
+        self.return_homepage
         # select first contact
         wd.find_element_by_name("selected[]").click()
         # submit deletion
@@ -59,6 +57,7 @@ class ContactHelper:
 
     def modify_contact_first(self, contact):
         wd = self.app.wd
+        self.return_homepage
         # select first contact
         wd.find_element_by_name("selected[]").click()
         # edit contact
@@ -91,13 +90,6 @@ class ContactHelper:
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
         wd.find_element_by_name("email").send_keys(contact.email)
-        wd.find_element_by_name("bday").click()
-        Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.bday)
-        wd.find_element_by_name("bmonth").click()
-        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.bmonth)
-        wd.find_element_by_name("byear").click()
-        wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys(contact.byear)
         wd.find_element_by_name("update").click()
 
     def open_home_page(self):
@@ -105,4 +97,6 @@ class ContactHelper:
         # open groups page
         self.open_home_page()
 
-
+    def return_homepage(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home page").click()
