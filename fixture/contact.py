@@ -7,6 +7,7 @@ class ContactHelper:
 
     def create_contact(self, contact):
         wd = self.app.wd
+        self.open_home_page()
         # open contact page
         wd.find_element_by_link_text("add new").click()
         # fill contact firm and create contact
@@ -45,19 +46,22 @@ class ContactHelper:
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(contact.byear)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.return_homepage()
 
     def delete_first_contact(self):
         wd = self.app.wd
-        self.return_homepage
+        self.open_home_page()
         # select first contact
         wd.find_element_by_name("selected[]").click()
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
 
+
+
     def modify_contact_first(self, contact):
         wd = self.app.wd
-        self.return_homepage
+        self.open_home_page()
         # select first contact
         wd.find_element_by_name("selected[]").click()
         # edit contact
@@ -91,12 +95,16 @@ class ContactHelper:
         wd.find_element_by_name("email").clear()
         wd.find_element_by_name("email").send_keys(contact.email)
         wd.find_element_by_name("update").click()
+        self.return_homepage()
 
     def open_home_page(self):
         wd = self.app.wd
-        # open groups page
-        self.open_home_page()
+        wd.find_element_by_link_text("home").click()
 
     def return_homepage(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
+
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))
