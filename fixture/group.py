@@ -26,6 +26,7 @@ class GroupHelper:
 
 
     def change_field_value(self, field_name, field_value):
+        # значение поля будет меняться или оставаться таким каким было
         wd = self.app.wd
         if field_value is not None:
             wd.find_element_by_name(field_name).click()
