@@ -102,10 +102,13 @@ class GroupHelper:
         wd = self.app.wd
         self.open_groups_page()
         groups = []
+        #запрос на получение нужных элементов на странице group
         for element in wd.find_elements_by_css_selector("span.group"):
             text = element.text
+        #находим чекбокс внутри элемента span, у чекбокса атрибут value, это будет индентивикатор
             id = element.find_element_by_name("selected[]").get_attribute("value")
             groups.append(Group(name=text, id=id))
+        #возвращение списка groups
         return groups
 
 

@@ -1,5 +1,5 @@
 from selenium.webdriver.support.select import Select
-
+from model.contact import Contact
 class ContactHelper:
 
     def __init__(self, app):
@@ -71,4 +71,22 @@ class ContactHelper:
     def count(self):
         #подсчет кол-ва контактов
         wd = self.app.wd
+        self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.open_home_page()
+        contacts = []
+        # запрос на получение нужных элементов на странице
+        for element in wd.find_elements_by_name('entry'):
+            cells = element.find_elements_by_css_selector("td")
+            lastname = cells[1].text
+            firstname = cells[2].text
+            # находим чекбокс внутри элемента, у чекбокса атрибут value, это будет индентивикатор
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(lastname = lastname, firstname=firstname, id=id))
+        # возвращение списка contacts
+        return contacts
+
+
