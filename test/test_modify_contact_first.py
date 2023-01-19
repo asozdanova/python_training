@@ -8,8 +8,8 @@ def test_modify_contact_first_firstname(app):
     contact = Contact (firstname="petr")
     contact.id = old_contacts[0].id  # запоминаем идентификатор контакта
     app.contact.modify_contact_first(contact)
+    assert len(old_contacts) == app.contact.count() #проверка длины, метод count выступает в роли хеша
     new_contacts = app.contact.get_contact_list()  # новый список контактов
-    assert len(old_contacts) == len(new_contacts)  # сравнение старых и новых контактов
     old_contacts[0] = contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 

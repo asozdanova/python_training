@@ -13,6 +13,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_homepage()
+        self.contact_cache = None  # сброс кеша после добавления контактов
 
     def fill_contact_form(self, contact):
         wd = self.app.wd
@@ -44,6 +45,7 @@ class ContactHelper:
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
+        self.contact_cache = None  # сброс кеша после удаления контактов
 
 
 
@@ -58,6 +60,7 @@ class ContactHelper:
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.return_homepage()
+        self.contact_cache = None  # сброс кеша после модификации контактов
 
     def open_home_page(self):
         wd = self.app.wd
@@ -74,19 +77,21 @@ class ContactHelper:
         self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+    contact_cache = None
     def get_contact_list(self):
-        wd = self.app.wd
-        self.open_home_page()
-        contacts = []
-        # запрос на получение нужных элементов на странице
-        for element in wd.find_elements_by_name('entry'):
-            cells = element.find_elements_by_css_selector("td")
-            lastname = cells[1].text
-            firstname = cells[2].text
-            # находим чекбокс внутри элемента, у чекбокса атрибут value, это будет индентивикатор
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(lastname = lastname, firstname=firstname, id=id))
+        if self.contact_cache is None:
+           wd = self.app.wd
+           self.open_home_page()
+           self.contact_cache = []
+           # запрос на получение нужных элементов на странице
+           for element in wd.find_elements_by_name('entry'):
+               cells = element.find_elements_by_css_selector("td")
+               lastname = cells[1].text
+               firstname = cells[2].text
+               # находим чекбокс внутри элемента, у чекбокса атрибут value, это будет индентивикатор
+               id = element.find_element_by_name("selected[]").get_attribute("value")
+               self.contact_cache.append(Contact(lastname = lastname, firstname=firstname, id=id))
         # возвращение списка contacts
-        return contacts
+        return list(self.contact_cache) #возврат копии кеша
 
 

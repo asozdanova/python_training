@@ -6,7 +6,7 @@ def test_delete_first_contact(app):
                     phonemobile="999", phonework="777", phonefax="888", email="mail"))
     old_contacts = app.contact.get_contact_list()  # сохранить старый список контактов
     app.contact.delete_first_contact()
+    assert len(old_contacts) - 1 == app.contact.count() #проверка длины, метод count выступает в роли хеша
     new_contacts = app.contact.get_contact_list()  # новый список контактов
-    assert len(old_contacts) - 1 == len(new_contacts)  # сравнение старых и новых контактов
     old_contacts[0:1] = []
     assert old_contacts == new_contacts
