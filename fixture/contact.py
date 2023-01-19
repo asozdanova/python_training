@@ -38,22 +38,25 @@ class ContactHelper:
             wd.find_element_by_name(field_name).send_keys(field_value)
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self,index):
         wd = self.app.wd
         self.open_home_page()
-        # select first contact
-        wd.find_element_by_name("selected[]").click()
+        # select  contact
+        wd.find_elements_by_name("selected[]")[index].click()
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         self.contact_cache = None  # сброс кеша после удаления контактов
 
-
-
     def modify_contact_first(self, new_contact_data):
+        self.modify_contact_by_index(0)
+    def modify_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
         self.open_home_page()
-        # select first contact
-        wd.find_element_by_name("selected[]").click()
+        # select  contact
+        wd.find_elements_by_name("selected[]")[index].click()
         # edit contact
         wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a").click()
         # fill contact firm
