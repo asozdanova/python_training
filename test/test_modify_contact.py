@@ -7,7 +7,7 @@ def test_modify_contact_firstname(app):
     old_contacts = app.contact.get_contact_list()  # сохранить старый список контактов
     index = randrange(len(old_contacts))  # индекс модифицируемого контакта
     contact = Contact (firstname="petr")
-    contact.id = old_contacts[0].id  # запоминаем идентификатор контакта
+    contact.id = old_contacts[index].id  # запоминаем идентификатор контакта
     app.contact.modify_contact_by_index(index, contact)
     assert len(old_contacts) == app.contact.count() #проверка длины, метод count выступает в роли хеша
     new_contacts = app.contact.get_contact_list()  # новый список контактов
