@@ -21,7 +21,7 @@ class Contact:
 
         # сравнение объектов логически по именам безусловно и идентификаторам, если они определены
     def __eq__(self, other):
-        return (self.id is None or other.id is None or self.id == other.id) and self.firstname == other.firstname
+        return (self.id is None or other.id is None or self.id == other.id)  and self.firstname == other.firstname
 
         # вычислять по контакту ключ используемой для сравнения
     def id_or_max(self):

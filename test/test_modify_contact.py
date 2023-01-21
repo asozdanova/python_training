@@ -1,6 +1,6 @@
 from model.contact import Contact
 from random import randrange
-def test_modify_contact_firstname(app):
+def test_modify_contact(app):
     if app.contact.count() == 0:
         app.contact.create_contact(Contact(firstname="alla", middlename="alla", lastname="sozdanova", address="address", phonehome="555",
                     phonemobile="999", phonework="777", phonefax="888", email="mail"))
