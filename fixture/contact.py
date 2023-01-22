@@ -95,9 +95,11 @@ class ContactHelper:
                lastname = cells[1].text
                # находим чекбокс внутри элемента, у чекбокса атрибут value, это будет индентивикатор
                id = cells[0].find_element_by_tag_name("input").get_attribute("value")
+               all_address = cells[3].text
+               all_emails = cells[4].text
                all_phones = cells[5].text
-               self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id,
-                                                 all_phones_from_home_page=all_phones))
+               self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id, address=all_address,
+                                                 all_phones_from_home_page=all_phones, email=all_emails ))
         # возвращение списка contacts
         return list(self.contact_cache) #возврат копии кеша
 
@@ -124,8 +126,13 @@ class ContactHelper:
         phonehome = wd.find_element_by_name("home").get_attribute("value")
         phonework = wd.find_element_by_name("work").get_attribute("value")
         phonemobile = wd.find_element_by_name("mobile").get_attribute("value")
+        address = wd.find_element_by_name("address").get_attribute("value")
+        email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, id=id,
-                       phonehome=phonehome,phonework=phonework,phonemobile=phonemobile)
+                       phonehome=phonehome,phonework=phonework,phonemobile=phonemobile,
+                       address=address, email=email, email2=email2, email3=email3)
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
