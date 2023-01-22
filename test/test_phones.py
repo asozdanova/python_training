@@ -3,7 +3,7 @@ from random import randrange
 
 def test_phones_on_home_page(app):
     old_contacts = app.contact.get_contact_list()  # сохранить старый список контактов
-    index = randrange(len(old_contacts))  # индекс модифицируемого контакта
+    index = randrange(len(old_contacts))  # индекс  контакта
     contact_from_home_page = app.contact.get_contact_list()[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
     assert contact_from_home_page.all_phones_from_home_page== merge_phones_like_on_home_page(contact_from_edit_page)
