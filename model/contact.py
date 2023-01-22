@@ -23,7 +23,9 @@ class Contact:
 
         # как будет выглядеть объект при выводе : идентификатор, имя, фамилия
     def __repr__ (self):
-        return "%s:%s:%s" % (self.id, self.lastname, self.firstname)
+        return "%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s" % \
+            (self.id, self.lastname, self.firstname, self.email, self.email3,self.email2,self.address,self.phonefax,
+                                self.phonework, self.phonemobile, self.phonehome,self.middlename)
 
         # сравнение объектов логически по именам безусловно и идентификаторам, если они определены
     def __eq__(self, other):

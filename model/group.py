@@ -9,7 +9,7 @@ class Group:
 
     #как будет выглядеть объект при выводе : идентификатор и имя
     def __repr__(self):
-        return "%s:%s" % (self.id, self.name)
+        return "%s:%s:%s:%s" % (self.id, self.name, self.header, self.footer)
 
     #сравнение объектов логически по именам безусловно и идентификаторам, если они определены
     def __eq__(self, other):
