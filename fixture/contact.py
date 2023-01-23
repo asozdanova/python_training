@@ -52,15 +52,20 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         self.contact_cache = None  # сброс кеша после удаления контактов
 
-    def modify_contact_first(self, new_contact_data):
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        # select  contact
+        wd.find_elements_by_name("selected[]")[index].click()
+
+    def modify_contact_first(self):
+        wd = self.app.wd
         self.modify_contact_by_index(0)
     def modify_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
         self.open_home_page()
-        # select  contact
-        wd.find_elements_by_name("selected[]")[index].click()
+        self.select_contact_by_index(index)
         # edit contact
-        wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a").click()
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
         # fill contact firm
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()

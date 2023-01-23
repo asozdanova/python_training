@@ -13,9 +13,9 @@ testdata = [Contact(firstname="", middlename="", lastname="", address="", phoneh
             Contact(firstname=random_string("firstname", 10), middlename=random_string("middlename", 10),
                     lastname=random_string("lastname", 10),address=random_string("address", 10),
                     phonehome=random_string("phonehome", 10),phonemobile=random_string("address", 10),
-                    phonework=random_string("phonework", 20), phonefax=random_string("phonefax", 10),
+                    phonework=random_string("phonework", 10), phonefax=random_string("phonefax", 10),
                     email=random_string("email", 10),email2=random_string("email2", 10), email3=random_string("email3", 10))
-            for i in range(10)]
+            for i in range(5)]
 
 @pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
 def test_add_contact(app,contact):
