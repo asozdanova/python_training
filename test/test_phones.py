@@ -18,21 +18,23 @@ def test_phones_on_contact_view_page(app):
     assert contact_from_view_page.phonehome == contact_from_edit_page.phonehome
     assert contact_from_view_page.phonemobile == contact_from_edit_page.phonemobile
     assert contact_from_view_page.phonework == contact_from_edit_page.phonework
+    assert contact_from_view_page.phone2 == contact_from_edit_page.phone2
 
 
 def clear(s):
-    return re.sub("[()-]", "", s)
+    return re.sub("[() -]  /", "", s)
+
 
 def merge_phones_like_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
                             map(lambda x: clear(x), filter(lambda x: x is not None,
-                                                           [contact.phonehome,contact.phonemobile,contact.phonework]))))
+                                                           [contact.phonehome,contact.phonemobile,contact.phonework,contact.phone2]))))
 
 
 def merge_email_like_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
-                            map(lambda x: clear(x), filter(lambda x: x is not None,
-                                                           [contact.email,contact.email2,contact.email3]))))
+                            filter(lambda x: x is not None,
+                                                           [contact.email,contact.email2,contact.email3])))
 
 
 

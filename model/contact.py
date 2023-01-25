@@ -2,7 +2,7 @@ from sys import maxsize
 class Contact:
     def __init__(self, firstname=None, middlename=None, lastname=None,id=None,
                  address=None, phonehome=None, phonemobile=None, phonework=None,
-                 phonefax=None, email=None, email2=None, email3=None, bday=None, bmonth=None,byear=None, all_phones_from_home_page=None):
+                 phonefax=None, phone2=None, email=None, email2=None, email3=None, bday=None, bmonth=None,byear=None, all_phones_from_home_page=None):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
@@ -17,15 +17,16 @@ class Contact:
         self.bday = bday
         self.bmonth = bmonth
         self.byear = byear
+        self.phone2 = phone2
         self.id = id
         self.all_phones_from_home_page=all_phones_from_home_page
 
 
         # как будет выглядеть объект при выводе : идентификатор, имя, фамилия
     def __repr__ (self):
-        return "%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s" % \
+        return "%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s" % \
             (self.id, self.lastname, self.firstname, self.email, self.email3,self.email2,self.address,self.phonefax,
-                                self.phonework, self.phonemobile, self.phonehome,self.middlename)
+                                self.phonework, self.phonemobile, self.phonehome, self.phone2,self.middlename)
 
         # сравнение объектов логически по именам безусловно и идентификаторам, если они определены
     def __eq__(self, other):
