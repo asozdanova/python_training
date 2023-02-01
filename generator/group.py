@@ -36,7 +36,7 @@ testdata = [Group(name="", header="", footer="")] + [
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f) #путь к генератору/переход на один уровень вверх в корневую дир. проекта/относит. пусть к файлу
 
 with open(file, "w") as out:
-    jsonpickle.set_encoder_options("json", indent=2)
+    jsonpickle.set_encoder_options("json", indent=2)#кодировка
     out.write(jsonpickle.encode(testdata))
 
 
