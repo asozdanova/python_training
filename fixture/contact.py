@@ -52,10 +52,25 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         self.contact_cache = None  # сброс кеша после удаления контактов
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.open_home_page()
+        # select  contact
+        self.select_contact_by_id(id)
+        # submit deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+        self.open_home_page()
+        self.contact_cache = None  # сброс кеша после удаления контактов
+
     def select_contact_by_index(self, index):
         wd = self.app.wd
         # select  contact
         wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
     def modify_contact_first(self):
         wd = self.app.wd
@@ -70,6 +85,15 @@ class ContactHelper:
         self.return_homepage()
         self.contact_cache = None  # сброс кеша после модификации контактов
 
+    def modify_contact_by_id(self, id, new_contact_data):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_css_selector('a[href="edit.php?id=%s"]' % id).click()
+        # fill contact firm
+        self.fill_contact_form(new_contact_data)
+        wd.find_element_by_name("update").click()
+        self.return_homepage()
+        self.contact_cache = None  # сброс кеша после модификации контактов
     def open_home_page(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("/") and len(wd.find_elements_by_link_text("Last name")) > 0):
