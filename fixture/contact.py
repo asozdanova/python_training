@@ -172,14 +172,21 @@ class ContactHelper:
         phone2 = re.search("P: (.*)", text).group(1)
         return Contact(phonehome=phonehome, phonework=phonework, phonemobile=phonemobile, phone2=phone2)
 
+   # def add_contact_in_group(self, contact_id, group_id):
+    #    wd = self.app.wd
+     #   self.open_home_page()
+    #    wd.find_element_by_css_selector('input[id="%s"]' % contact_id)  # Сначала ждем наш элемент
+     #   wd.find_element_by_css_selector('input[id="%s"]' % contact_id).click()
+      #  wd.find_element_by_css_selector('select[name="to_group"] > option[value="%s"]' % group_id).click()
+    #    wd.find_element_by_name("add").click()
 
-
-
-
-
-
-
-
+    def add_contact_to_group(self, contact, group):
+        wd = self.app.wd
+        self.return_homepage()
+        wd.find_element_by_css_selector("input[value='%s']" % contact.id).click()
+        Select(wd.find_element_by_name("to_group")).select_by_visible_text(group.name)
+        wd.find_element_by_name("add").click()
+        self.return_homepage()
 
 
 
