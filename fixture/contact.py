@@ -1,6 +1,7 @@
 from selenium.webdriver.support.select import Select
 from model.contact import Contact
 import re
+import time
 class ContactHelper:
 
     def __init__(self, app):
@@ -180,13 +181,19 @@ class ContactHelper:
       #  wd.find_element_by_css_selector('select[name="to_group"] > option[value="%s"]' % group_id).click()
     #    wd.find_element_by_name("add").click()
 
-    def add_contact_to_group(self, contact, group):
+    def add_contact_to_group_by_id(self, cid, gid):
         wd = self.app.wd
-        self.return_homepage()
-        wd.find_element_by_css_selector("input[value='%s']" % contact.id).click()
-        Select(wd.find_element_by_name("to_group")).select_by_visible_text(group.name)
-        wd.find_element_by_name("add").click()
-        self.return_homepage()
+        self.app.open_home_page()
+        self.select_contact_by_id(cid)
+        wd.find_element_by_xpath("//select[@name='to_group']/option[@value='" + str(gid) + "']").click()
+        wd.find_element_by_css_selector("input[value='Add to']").click()
+
+    def delete_contact_from_group_by_id(self, cid, gid):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_element_by_xpath("//select[@name='group']/option[@value='" + str(gid) + "']").click()
+        self.select_contact_by_id(cid)
+        wd.find_element_by_name("remove").click()
 
 
 

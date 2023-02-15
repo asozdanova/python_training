@@ -23,6 +23,47 @@ class DbFixture:
             cursor.close()
         return list
 
+    def get_contacts_in_group(self, group_id):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select addressbook.id,  addressbook.firstname, addressbook.lastname \
+                               from  address_in_groups \
+                               INNER JOIN addressbook\
+                               ON addressbook.id = address_in_groups.id \
+                               where addressbook.deprecated = '0000-00-00 00:00:00' \
+                               AND address_in_groups.deprecated = '0000-00-00 00:00:00'\
+                               AND address_in_groups.group_id = " + str(group_id))
+
+            for row in cursor:
+                (id, firstname, lastname) = row
+                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname))
+        finally:
+            cursor.close()
+        return list
+
+    def get_contacts_not_in_group(self, group_id):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select addressbook.id,  addressbook.firstname, addressbook.lastname \
+                               from  addressbook where \
+                               addressbook.id not in ( \
+                              select addressbook.id \
+                               from  address_in_groups \
+                               INNER JOIN addressbook\
+                               ON addressbook.id = address_in_groups.id \
+                               where addressbook.deprecated = '0000-00-00 00:00:00' \
+                               AND address_in_groups.deprecated = '0000-00-00 00:00:00'\
+                               AND address_in_groups.group_id = " + str(group_id) + ")")
+
+            for row in cursor:
+                (id, firstname, lastname) = row
+                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname))
+        finally:
+            cursor.close()
+        return list
+
     def get_contact_list(self):# метод загружает список групп
         list = []
         cursor = self.connection.cursor()

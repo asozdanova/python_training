@@ -21,6 +21,7 @@ def load_config(file):
 @pytest.fixture
 def app(request):
     global fixture
+    global target
     browser = request.config.getoption("--browser")
     web_config = load_config(request.config.getoption("--target"))['web']
     if fixture is None or not fixture.is_valid():
@@ -34,18 +35,16 @@ def db(request):
     dbfixture = DbFixture(host=db_config['host'], name=db_config['name'], user=db_config['user'], password=db_config['password'])
     def fin():
         dbfixture.destroy()
-
     request.addfinalizer(fin)
     return dbfixture
 
 
 @pytest.fixture (scope = "session", autouse=True)
 def stop(request):
-    def fin():
+    def fnl():
         fixture.session.ensure_logout()
         fixture.destroy()
-
-    request.addfinalizer(fin)
+    request.addfinalizer(fnl)
     return fixture
 
 @pytest.fixture
@@ -71,11 +70,7 @@ def load_from_json(file):
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data/%s.json" % file)) as f:
         return jsonpickle.decode(f.read())#перекодировать в исходный формат
 
-#@pytest.fixture(scope='session', autouse=True)
-#def orm(request):
- #   db_config = load_config(request.config.getoption("--target"))["db"]
-  #  ormfixture = ORMFixture(host=db_config['host'], name=db_config['name'], user=db_config['user'], password=db_config['password'])
-   # return ormfixture
+
 
 
 
