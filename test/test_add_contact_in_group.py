@@ -11,21 +11,17 @@ def test_add_contact_in_group(app,db,check_ui):
         app.group.submit_group_creation()
     # Есть ли контакты
     if len(db.get_contact_list()) == 0:
-       app.contact.create_contact(Contact("1n", "2n", "3n", "", "Title", "Comp", "address",
-                                    "", "", "+7900", "+723456789",
-                                    "test@test.com", "t@t2.com", "t@t3.com", "localhost",
-                                    "3", "May", "1998", "13", "April", "2020",
-                                    "sec address", "//test", "here are notes"))
+       app.contact.create_contact(Contact(firstname="1n", lastname="3n", address="Test address",
+                                    phonehome="+09875444", phonemobile="+79897896756", phonework="+79897896356",
+                                           phone2="+70008986756", email="t@test.com", email2="t@test2.com", email3="t@test3.com"))
     list_groups = db.get_group_list()
     group0 = random.choice(list_groups)
     old_list = db.get_contacts_in_group(group0.id)
     add_list = db.get_contacts_not_in_group(group0.id)
     if len(add_list) == 0:
-        app.contact.create_contact(Contact("1n", "2n", "3n", "", "Title", "Comp", "address",
-                                    "", "", "+7900", "+723456789",
-                                    "test@test.com", "t@t2.com", "t@t3.com", "localhost",
-                                    "3", "May", "1998", "13", "April", "2020",
-                                    "sec address", "//test", "here are notes"))
+        app.contact.create_contact(Contact(firstname="1n", lastname="3n", address="Test address",
+                                    phonehome="+09875444", phonemobile="+79897896756", phonework="+79897896356",
+                                           phone2="+70008986756", email="t@test.com",email2="t@test2.com", email3="t@test3.com"))
         add_list = db.get_contacts_not_in_group(group0.id)
     contact0 = random.choice(add_list)
     app.contact.add_contact_to_group_by_id(contact0.id, group0.id)
