@@ -11,6 +11,11 @@ def test_contact_on_home_page_db(app, db):
     contacts_from_home_page = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
     assert len(db_contacts) == len(contacts_from_home_page)
     for i in range(len(db_contacts)):
+        print(str(i))
+        print(db_contacts[i])
+        print(contacts_from_home_page[i])
+
+    for i in range(len(db_contacts)):
         assert db_contacts[i].id == contacts_from_home_page[i].id
         assert db_contacts[i].firstname == contacts_from_home_page[i].firstname
         assert db_contacts[i].lastname == contacts_from_home_page[i].lastname
