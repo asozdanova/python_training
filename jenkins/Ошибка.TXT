@@ -1,0 +1,46 @@
+Started by user Созданова Алла Аркадьевна
+Running as SYSTEM
+Building in workspace C:\Users\andre\.jenkins\workspace\addressbooktest2
+The recommended git tool is: NONE
+No credentials specified
+ > C:\Program Files\Git\bin\git.exe rev-parse --resolve-git-dir C:\Users\andre\.jenkins\workspace\addressbooktest2\.git # timeout=10
+Fetching changes from the remote Git repository
+ > C:\Program Files\Git\bin\git.exe config remote.origin.url https://github.com/asozdanova/test # timeout=10
+Fetching upstream changes from https://github.com/asozdanova/test
+ > C:\Program Files\Git\bin\git.exe --version # timeout=10
+ > git --version # 'git version 2.39.2.windows.1'
+ > C:\Program Files\Git\bin\git.exe fetch --tags --force --progress -- https://github.com/asozdanova/test +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > C:\Program Files\Git\bin\git.exe rev-parse "refs/remotes/origin/main^{commit}" # timeout=10
+Checking out Revision a1b6a38700f2f23aed6754f332ef6b33d6c0228c (refs/remotes/origin/main)
+ > C:\Program Files\Git\bin\git.exe config core.sparsecheckout # timeout=10
+ > C:\Program Files\Git\bin\git.exe checkout -f a1b6a38700f2f23aed6754f332ef6b33d6c0228c # timeout=10
+Commit message: "Настроен запуск тестов на сервере непрерывной интеграции Jenkins"
+First time build. Skipping changelog.
+[addressbooktest2] $ cmd.exe /C "C:\Python311\python.exe C:\Users\andre\.jenkins\shiningpanda\jobs\4a5acd84\virtualenv.py C:\Users\andre\.jenkins\shiningpanda\jobs\4a5acd84\virtualenvs\d41d8cd9 && exit %%ERRORLEVEL%%"
+C:\Users\andre\.jenkins\shiningpanda\jobs\4a5acd84\virtualenv.py:1041: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
+  import imp
+PYTHONHOME is set.  You *must* activate the virtualenv before using it
+Using base prefix 'C:\\Python311'
+Traceback (most recent call last):
+  File "C:\Users\andre\.jenkins\shiningpanda\jobs\4a5acd84\virtualenv.py", line 2343, in <module>
+    main()
+  File "C:\Users\andre\.jenkins\shiningpanda\jobs\4a5acd84\virtualenv.py", line 703, in main
+    create_environment(home_dir,
+  File "C:\Users\andre\.jenkins\shiningpanda\jobs\4a5acd84\virtualenv.py", line 925, in create_environment
+    py_executable = os.path.abspath(install_python(
+                                    ^^^^^^^^^^^^^^^
+  File "C:\Users\andre\.jenkins\shiningpanda\jobs\4a5acd84\virtualenv.py", line 1134, in install_python
+    copy_required_modules(home_dir, symlink)
+  File "C:\Users\andre\.jenkins\shiningpanda\jobs\4a5acd84\virtualenv.py", line 1064, in copy_required_modules
+    dst_filename = change_prefix(filename, dst_prefix)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\andre\.jenkins\shiningpanda\jobs\4a5acd84\virtualenv.py", line 1023, in change_prefix
+    filename = os.path.abspath(filename)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen ntpath>", line 580, in abspath
+  File "<frozen ntpath>", line 547, in normpath
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+Build step 'Virtualenv Builder' marked build as failure
+Recording test results
+ERROR: Step ‘Publish JUnit test result report’ failed: No test report files were found. Configuration error?
+Finished: FAILURE
