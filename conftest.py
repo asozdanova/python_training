@@ -5,7 +5,6 @@ import jsonpickle
 import os.path
 import importlib
 from fixture.db import DbFixture
-from fixture.orm import ORMFixture
 
 fixture = None
 target = None
@@ -21,7 +20,7 @@ def load_config(file):
 @pytest.fixture
 def app(request):
     global fixture
-    global target
+    #global target
     browser = request.config.getoption("--browser")
     web_config = load_config(request.config.getoption("--target"))['web']
     if fixture is None or not fixture.is_valid():
